@@ -1,4 +1,5 @@
-//Module for calculating the car insurance based on given parameters
+//Module for calculating the car insurance based on given parametersvar moment = require('moment');
+const moment = require('moment');
 
 module.exports = class CarInsurance {
   // constructor(driver_birthdate, car_value) {
@@ -14,17 +15,22 @@ module.exports = class CarInsurance {
     let driverOmnium = [];
     let data = {};
     let value = car_value;
-    console.log(value);
+    console.log(value + ' line 17 on module');
 
-    function getDriverAge(driver_birthdate) { //Caculates the age of the driver
+    //Caculates the age of the driver
+    function getDriverAge(driver_birthdate) {
       const today = new Date();
-      const birthday = new Date(driver_birthdate);
+      console.log(driver_birthdate + ' line 23');
+      const dateMomentObject = moment(driver_birthdate, "DD/MM/YYYY");
+      const birthday = dateMomentObject.toDate() //converting date into correct format
+      console.log(birthday + 'line 22' )
       age = today.getFullYear() - birthday.getFullYear();
       const month = today.getMonth() - birthday.getMonth();
       if (month < 0 || (month === 0 && today.getDate() < birthday.getDate())) {
           age--;
       };
-      console.log(age + ' line 27')
+      console.log(driver_birthdate + ' line 27')
+      console.log(age + ' line 28')
       return age;
     };
 

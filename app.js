@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 
 const quoteRoute = require('./api/routes/quotes');
 
+const urlencodedParser = bodyParser.urlencoded({extended: true})
 //middleware
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -24,13 +25,13 @@ app.use((req, res, next) => {
 })
 
 //routes to handle requests
-app.use('/api/v1/quote', quoteRoute);
+app.use('/api/v1/quote', urlencodedParser, quoteRoute);
 
-app.use((req, res, next) => {
-  const error = new Error('Not found');
-  error.status = 404;
-  next(error);
-});
+// app.use((req, res, next) => {
+//   const error = new Error('Not found');
+//   error.status = 404;
+//   next(error);
+// });
 
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
